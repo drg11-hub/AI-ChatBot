@@ -1,0 +1,120 @@
+/* .header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #007bff;
+    padding: 10px 20px;
+    color: white;
+    margin: 10px;
+}
+
+.header-button,
+.logout-button {
+    background-color: #0056b3;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    margin-right: 15px;
+}
+
+.header-button:hover,
+.logout-button:hover {
+    background-color: #003f7f;
+} */
+
+/* header.css */
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #007bff;
+    padding: 10px 20px;
+    color: white;
+    margin: 10px;
+}
+
+.nav-item {
+    /* background-color: #0056b3; */
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    text-decoration: none; /* Ensure link looks like a button */
+    transition: background-color 0.3s;
+    margin-right: 15px;
+}
+
+.nav-item:hover {
+    background-color: #007bff;
+    margin: 5px;
+}
+
+.user-controls {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.user-dropdown {
+    margin-right: 24px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    /* display: flex; */
+    align-items: center;
+}
+
+.user-dropdown:hover {
+    background-color: #007bff;
+}
+
+.dropdown-arrow {
+    margin-left: 8px;
+    width: 16px;
+    height: 16px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    margin-right: 7px;
+    top: 40px; /* Adjust based on the height of the dropdown */
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #ddd;
+}
