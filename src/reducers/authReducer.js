@@ -54,7 +54,7 @@ export const restoreSession = createAsyncThunk(
         return rejectWithValue(error.response.data.errors);
       }
     } else {
-      return rejectWithValue('No token found');
+      return rejectWithValue('');
     }
   }
 );
