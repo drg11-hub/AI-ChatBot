@@ -11,7 +11,14 @@ import { Provider, useDispatch } from 'react-redux';
 import store from './helpers/store'; // Adjust the path as necessary
 import { restoreSession } from './reducers/authReducer'; // Import the restoreSession action
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:3001';
+
+const dotenv = require('dotenv');
+
+const baseURL = process.env.NODE_ENV === 'production' 
+  ? 'https://aichatbot-bknd.onrender.com/api' 
+  : 'http://localhost:3001/api';
+
+axios.defaults.baseURL = AXIOS_BASEURL;
 
 const App = () => {
   const dispatch = useDispatch();

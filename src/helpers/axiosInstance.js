@@ -1,8 +1,13 @@
 import axios from 'axios';
+const dotenv = require('dotenv');
+
+const baseURL = process.env.NODE_ENV === 'production' 
+  ? 'https://aichatbot-bknd.onrender.com/api' 
+  : 'http://localhost:3001/api';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3001/api',
+    baseURL,
 });
 
 // Add a request interceptor to include the Authorization header
