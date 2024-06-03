@@ -12,8 +12,6 @@ import store from './helpers/store'; // Adjust the path as necessary
 import { restoreSession } from './reducers/authReducer'; // Import the restoreSession action
 import axios from 'axios';
 
-const dotenv = require('dotenv');
-
 const baseURL = process.env.NODE_ENV === 'production' 
   ? 'https://aichatbot-bknd.onrender.com/api' 
   : 'http://localhost:3001/api';

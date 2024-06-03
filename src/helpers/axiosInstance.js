@@ -1,5 +1,4 @@
 import axios from 'axios';
-const dotenv = require('dotenv');
 
 const baseURL = process.env.NODE_ENV === 'production' 
   ? 'https://aichatbot-bknd.onrender.com/api' 
