@@ -16,7 +16,7 @@ const baseURL = process.env.NODE_ENV === 'production'
   ? 'https://aichatbot-bknd.onrender.com/api' 
   : 'http://localhost:3001/api';
 
-axios.defaults.baseURL = AXIOS_BASEURL;
+axios.defaults.baseURL = baseURL;
 
 const App = () => {
   const dispatch = useDispatch();
