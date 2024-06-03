@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = process.env.NODE_ENV === 'production' 
-  ? 'https://aichatbot-bknd.onrender.com' 
+  ? 'https://aichatbot-bknd.onrender.com/api' 
   : 'http://localhost:3001/api';
 
 // Create an Axios instance
