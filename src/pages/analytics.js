@@ -1,70 +1,74 @@
-import React from 'react';
-import { Bar, Pie } from 'react-chartjs-2';
-import Header from "../components/Header/header";
-import 'chart.js/auto';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMessagesPerDay, fetchResponseTime } from '../reducers/analyticsSlice';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './analytics.css';
+import moment from 'moment';
 
-const AnalyticsPage = () => {
-    const promptsData = {
-        labels: ['Chat 1', 'Chat 2', 'Chat 3', 'Chat 4'],
-        datasets: [
-            {
-                label: 'Number of Prompts',
-                data: [12, 19, 3, 5],
-                backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
+const Analytics = () => {
+  const dispatch = useDispatch();
+  const { messagesPerDay, responseTimes, status, error } = useSelector((state) => state.analytics);
 
-    const responseTimeData = {
-        labels: ['Chat 1', 'Chat 2', 'Chat 3', 'Chat 4'],
-        datasets: [
-            {
-                label: 'Average Response Time (s)',
-                data: [1.2, 2.3, 1.8, 2.5],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
+  useEffect(() => {
+    dispatch(fetchMessagesPerDay());
+    dispatch(fetchResponseTime());
+  }, [dispatch]);
 
-    return (
-        <div>
-            <div className="analytics-container" style={{ padding: '20px' }}>
-                <h1>Chatbot Performance Analytics</h1>
-                <div style={{ width: '50%', margin: '0 auto' }}>
-                    <h2>Number of Prompts Given by User</h2>
-                    <Bar data={promptsData} />
+  const formattedResponseTimes = responseTimes.map((session) => ({
+    date: moment(session.date).format('YYYY-MM-DD'),
+    responseTime: session.averageResponseTime / 1000, // converting ms to seconds
+  }));
 
-                    <h2>Average Response Time</h2>
-                    <Pie data={responseTimeData} />
-                </div>
-            </div>
-        </div>
-    );
+  return (
+    <div className="analytics-container">
+      <h2>Analytics Dashboard</h2>
+      {status === 'loading' && <p>Loading...</p>}
+      {status === 'failed' && <p>{error}</p>}
+      {status === 'succeeded' && (
+        <>
+          <div className="analytics-item">
+            <h3>Messages Per Day</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart
+                data={messagesPerDay}
+                margin={{
+                  top: 5, right: 30, left: 20, bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="_id" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="count" stroke="#8884d8" activeDot={{ r: 8 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="analytics-item">
+            <h3>Response Time Per Day</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart
+                data={formattedResponseTimes}
+                margin={{
+                  top: 5, right: 30, left: 20, bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip 
+                  formatter={(value, name, props) => [`${value.toFixed(2)} seconds`, "Response Time"]}
+                  labelFormatter={(label) => `Date: ${label}`}
+                />
+                <Legend />
+                <Line type="monotone" dataKey="responseTime" stroke="#82ca9d" activeDot={{ r: 8 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </>
+      )}
+    </div>
+  );
 };
 
-export default AnalyticsPage;
+export default Analytics;
