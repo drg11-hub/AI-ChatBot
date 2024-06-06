@@ -119,3 +119,5 @@ const chatSlice = createSlice({
 
 export const { setCurrentSession, setIsTyping } = chatSlice.actions;
 export default chatSlice.reducer;
+
+// --------- google signup code:

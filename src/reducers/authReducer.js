@@ -59,6 +59,22 @@ export const restoreSession = createAsyncThunk(
   }
 );
 
+// Async thunk for password reset
+export const resetPasswordAsync = createAsyncThunk(
+  'auth/resetPasswordAsync',
+  async ({ email, newPassword }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('/auth/reset-password', { email, newPassword });
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data.errors);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -115,6 +131,16 @@ const authSlice = createSlice({
       .addCase(restoreSession.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
+      })
+      .addCase(resetPasswordAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(resetPasswordAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+      })
+      .addCase(resetPasswordAsync.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       });
   },
 });
@@ -122,3 +148,4 @@ const authSlice = createSlice({
 export const { logout, resetSignupSuccess } = authSlice.actions;
 export default authSlice.reducer;
 
+// ----------google signup code:

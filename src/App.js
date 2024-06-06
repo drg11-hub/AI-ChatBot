@@ -11,6 +11,7 @@ import { Provider, useDispatch } from 'react-redux';
 import store from './helpers/store'; // Adjust the path as necessary
 import { restoreSession } from './reducers/authReducer'; // Import the restoreSession action
 import axios from 'axios';
+import ResetPassword from "./pages/resetPassword";
 
 const baseURL = process.env.NODE_ENV === 'production' 
   ? 'https://aichatbot-bknd.onrender.com/api' 
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/login" element={<LogIn />} />
           <Route path="/chatmain" element={<ChatMain />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
       </div>
     </Router>
@@ -51,3 +53,4 @@ const Root = () => (
 
 export default Root;
 
+// --------- google signup code:

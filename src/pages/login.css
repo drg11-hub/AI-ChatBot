@@ -103,3 +103,19 @@ body {
         font-size: 14px;
     }
 }
+
+.forgot-password {
+    color: #007bff;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.9em;
+  }
