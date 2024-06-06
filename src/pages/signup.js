@@ -119,5 +119,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-// ------google signup code:
